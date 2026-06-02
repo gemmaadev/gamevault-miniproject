@@ -1,0 +1,158 @@
+/* MOBILE */
+
+.gamevault-page {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 4rem 2rem;
+  gap: 1rem;
+}
+
+.gamevault-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.gamevault-toolbar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 1.5rem;
+}
+
+.search-wrapper {
+  display: flex;
+  width: 100%;
+}
+
+.icon-and-label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.filters {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.filter-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-wrapper img {
+  width: 1rem;
+  height: 1rem;
+}
+
+.browse-view {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.catalogue-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.view-cards {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+}
+
+.jview-cards-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  flex: 1;
+  color: var(--color-text-navbar);
+}
+
+.view-cards-name {
+  font-weight: 450;
+  font-size: 1.2rem;
+  color: var(--color-black);
+}
+
+.view-cards-photo {
+  width: 10rem;
+  height: 10rem;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  background: var(--color-white);
+  flex-shrink: 0;
+}
+
+.btn-games {
+  width: fit-content;
+}
+
+.add-game-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: 1px solid var(--color-primary);
+  background-color: var(--color-secondary);
+  padding: 2rem;
+}
+
+.form-group input {
+  display: flex;
+  align-items: center;
+  background-color: var(--color-white);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  gap: 0.5rem;
+}
+
+/* MEDIA QUERIES > TABLET AND DESK */
+@media (width >= 768px) {
+  .gamevault-page {
+    padding: 4rem 4rem;
+    gap: 2rem;
+  }
+
+  .gamevault-toolbar {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .search-wrapper {
+    max-width: 25rem;
+    background-color: var(--color-white);
+    border: 1px solid var(--color-light-gray);
+  }
+
+  .filters {
+    display: flex;
+    flex-direction: row;
+    gap: 4rem;
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .catalogue-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .view-cards-photo {
+    width: 12rem;
+    height: 12rem;
+  }
+}

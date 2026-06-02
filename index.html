@@ -1,17 +1,27 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
+      rel="stylesheet"
+    />
+
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="gamevault.css" />
+    <link rel="stylesheet" href="/src/styles/variables.css" />
+    <link rel="stylesheet" href="/src/styles/global.css" />
+    <link rel="stylesheet" href="/src/styles/gamevault.css" />
 
     <title>game-vault-project</title>
   </head>
   <body>
     <main class="gamevault-page">
-      <h1 class="gamevault-title">Game Vault</h1>
+      <h1 class="gamevault-title">GAMEVAULT</h1>
       <!-- TOOLBAR WITH SEARCH BAR -->
       <div class="gamevault-toolbar">
         <form class="search-wrapper" role="search">
@@ -66,15 +76,14 @@
 
       <!-- VIDEOGAME CARDS AT RENDER.TS WITH DELETE OPTION -->
       <section class="catalogue-section" aria-label="Videogame catalogue">
-        <h2>All games</h2>
-        <div id="games-container" class="view-cards"></div>
+        <h2>All videogames</h2>
       </section>
 
       <!-- TOP 3 SECTION AT RENDER.TS -->
-      <section>
-        <h2>TOP 3 videogames</h2>
+      <section class="top-games-section">
+        <h2 class="top-games-title">TOP 3 videogames</h2>
         <ol id="top-games-list"></ol>
-      </section> 
+      </section>
 
       <!-- FORMS ADD VIDEOGAMES-->
       <form class="add-game-form">
@@ -83,7 +92,7 @@
         <div class="form-group">
           <label for="new-game">Enter videogame title:</label>
           <input
-            type="text" 
+            type="text"
             id="new-game"
             name="title"
             placeholder="e.g. Life is Strange"
@@ -141,7 +150,9 @@
           />
         </div>
 
-        <button type="submit">Add videogame</button>
+        <button type="submit" class="btn btn-primary btn-games">
+          Add videogame
+        </button>
       </form>
     </main>
 

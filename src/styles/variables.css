@@ -1,0 +1,18 @@
+:root {
+  /* Colors */
+  --color-primary: #484398;
+  --color-secondary: #d0d0ff;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-light-gray: #bcc1ca;
+  --color-error: #ff0000;
+  --color-text-separator: #9095a0;
+  --color-text-navbar: #565e6c;
+
+  /* Border-radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+
+  /* Typography */
+  --font-family-base: "Source Sans 3", sans-serif;
+}
