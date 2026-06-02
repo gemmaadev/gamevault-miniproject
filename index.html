@@ -4,10 +4,147 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="gamevault.css" />
+
     <title>game-vault-project</title>
   </head>
   <body>
-    <div id="app"></div>
+    <main class="gamevault-page">
+      <h1 class="gamevault-title">Game Vault</h1>
+      <!-- TOOLBAR WITH SEARCH BAR -->
+      <div class="gamevault-toolbar">
+        <form class="search-wrapper" role="search">
+          <label for="games-search" class="visually-hidden"
+            >Search videogames</label
+          >
+          <img src="/icon-search.svg" alt="" />
+          <input
+            type="search"
+            id="games-search"
+            placeholder="Search videogames..."
+            autocomplete="off"
+          />
+        </form>
+
+        <!-- FILTERS -->
+        <div class="filters" role="group" aria-label="Videogame filters">
+          <div class="filter-wrapper">
+            <div class="icon-and-label">
+              <img src="/icon-filter.svg" alt="" />
+              <label for="genre-filter">Genre</label>
+            </div>
+            <select id="genre-filter" aria-label="Filter by genre">
+              <option value="">All</option>
+              <option value="farming-simulation">Farming Simulation</option>
+              <option value="graphic-adventure">Graphic Adventure</option>
+              <option value="survival-horror">Survival Horror</option>
+              <option value="life-simulation">Life Simulation</option>
+              <option value="action-adventure">Action-Adventure</option>
+              <option value="co-op-platformer">Co-op Platformer</option>
+              <option value="shooter">Shooter</option>
+            </select>
+          </div>
+
+          <div class="filter-wrapper">
+            <div class="icon-and-label">
+              <img src="/icon-filter.svg" alt="" />
+              <label for="platform-filter">Platform</label>
+            </div>
+            <select id="platform-filter" aria-label="Filter by platform">
+              <option value="">All</option>
+              <option value="pc">PC</option>
+              <option value="console">Console</option>
+              <option value="mobile">Mobile</option>
+              <option value="playstation">PlayStation</option>
+              <option value="nintendo-switch">Nintendo Switch</option>
+              <option value="multiplatform">Multiplatform</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIDEOGAME CARDS AT RENDER.TS WITH DELETE OPTION -->
+      <section class="catalogue-section" aria-label="Videogame catalogue">
+        <h2>All games</h2>
+        <div id="games-container" class="view-cards"></div>
+      </section>
+
+      <!-- TOP 3 SECTION AT RENDER.TS -->
+      <section>
+        <h2>TOP 3 videogames</h2>
+        <ol id="top-games-list"></ol>
+      </section> 
+
+      <!-- FORMS ADD VIDEOGAMES-->
+      <form class="add-game-form">
+        <h2 id="form-title">Add new videogames</h2>
+
+        <div class="form-group">
+          <label for="new-game">Enter videogame title:</label>
+          <input
+            type="text" 
+            id="new-game"
+            name="title"
+            placeholder="e.g. Life is Strange"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="genre">Enter genre:</label>
+          <input
+            type="text"
+            id="genre"
+            name="genre"
+            placeholder="e.g. Adventure"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="platform">Enter platform:</label>
+          <input
+            type="text"
+            id="platform"
+            name="platform"
+            placeholder="e.g. PC"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="release-year">Enter release year:</label>
+          <input
+            type="number"
+            id="release-year"
+            name="releaseYear"
+            placeholder="e.g. 2022"
+            min="1950"
+            max="2030"
+            step="1"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="rating">Enter rating (1-10):</label>
+          <input
+            type="number"
+            id="rating"
+            name="rating"
+            placeholder="e.g. 9.5"
+            min="0"
+            max="10"
+            step="0.1"
+            required
+          />
+        </div>
+
+        <button type="submit">Add videogame</button>
+      </form>
+    </main>
+
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

@@ -20,8 +20,8 @@ export const VideogameMock: Videogame[] = [
   {
     id: 3,
     title: "Until Dawn",
-    genre: "Survival Horror / Interactive Story",
-    platform: "PlayStation / PC",
+    genre: "Survival Horror",
+    platform: "PlayStation",
     rating: 9,
     year: 2015,
   },
@@ -36,7 +36,7 @@ export const VideogameMock: Videogame[] = [
   {
     id: 5,
     title: "Animal Crossing: New Horizons",
-    genre: "Social Simulation",
+    genre: "Life Simulation",
     platform: "Nintendo Switch",
     rating: 10,
     year: 2020,
@@ -60,7 +60,7 @@ export const VideogameMock: Videogame[] = [
   {
     id: 8,
     title: "Split Fiction",
-    genre: "Co-op Platformer / Adventure",
+    genre: "Co-op Platformer",
     platform: "Multiplatform",
     rating: 8.5,
     year: 2025,
