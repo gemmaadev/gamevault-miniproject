@@ -6,4 +6,5 @@ export interface Videogame {
   platform: string;
   rating: number;
   year: number;
+  cover: string;
 }
