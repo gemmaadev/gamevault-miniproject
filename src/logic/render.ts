@@ -20,7 +20,7 @@ export function renderVideogames(videogames: Videogame[]): void {
         <p class="game-card-platform">${videogame.platform}</p>
         <p class="game-card-rating">Rating: ${videogame.rating}</p>
         <p class="game-card-year">Release year: ${videogame.year}</p>
-         <button type="button" class="btn btn-primary btn-games">Delete</button>
+         <button type="button" data-id="${videogame.id}" class="btn btn-primary btn-games">Delete</button>
        </div>
         <img src="${videogame.cover}"
          class="game-card-photo"/>
@@ -38,12 +38,13 @@ export function renderTop3(videogames: Videogame[]): void {
 
   if (!podium) return;
 
-  const top3List: HTMLElement | null = document.getElementById("top-games-list"); //Seleccionar contenidor al HTML
+  const top3List: HTMLElement | null =
+    document.getElementById("top-games-list"); //Seleccionar contenidor al HTML
 
   if (!top3List) return;
 
   const generateHTML = podium //convertir array d'objectes ja ordenat i tallat en bloc d'HTML
-    .map((videogame, index) => {  
+    .map((videogame, index) => {
       return ` 
       <p class="top3">Top ${index + 1}</p>  
       <li class="game-card">
@@ -53,15 +54,13 @@ export function renderTop3(videogames: Videogame[]): void {
         <p class="game-card-platform">${videogame.platform}</p>
         <p class="game-card-rating"> Rating: ${videogame.rating}</p>
         <p class="game-card-year">Release year: ${videogame.year}</p>
-         <button type="button" class="btn btn-primary btn-games">Delete</button>
-       </div>
+        </div>
         <img src="${videogame.cover}"
          class="game-card-photo"/>
-    </li>`;
+    </li>`; //Posar data-id al button de delete perquè després, quan fem click en aquest botó, puguem identificar quin joc és i eliminar-lo del catàleg.
     })
     .join(""); //Per unir tots els elements d'un array i convertir-los en una única cadena de text (string).
 
   //Injectar-lo
-    top3List.innerHTML = generateHTML;
-  }
-
+  top3List.innerHTML = generateHTML;
+}

@@ -2,7 +2,7 @@ import type { Videogame } from "../types/videogame";
 
 //PAS 2 PER RENDERITZAR CONTINGUT DINÀMIC: CREAR UN ARRAY D'OBEJCTES SIMULATS (MOCK DATA)
 
-export const VideogameMock: Videogame[] = [
+export const videogameMock: Videogame[] = [
   {
     id: 1,
     title: "Stardew Valley",
