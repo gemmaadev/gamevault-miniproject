@@ -22,7 +22,7 @@ export function renderVideogames(videogames: Videogame[]): void {
         <p class="game-card-year">Release year: ${videogame.year}</p>
          <button type="button" data-id="${videogame.id}" class="btn btn-primary btn-games">Delete</button>
        </div>
-        <img src="${videogame.cover}"
+        <img src="${videogame.cover}" alt="${videogame.title}"
          class="game-card-photo"/>
     </li>`;
     })

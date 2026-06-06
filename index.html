@@ -89,8 +89,8 @@
       </section>
 
       <!-- FORMS ADD VIDEOGAMES-->
-      <form class="add-game-form">
-        <h2 id="form-title">Add new videogames</h2>
+      <form id="add-game-form" class="add-game-form">
+        <h2 class="form-title">Add new videogames</h2>
 
         <div class="form-group">
           <label for="new-game">Enter videogame title:</label>
@@ -153,7 +153,17 @@
           />
         </div>
 
-        <button type="submit" class="btn btn-primary btn-games">
+        <div class="form-group">
+          <label for="game-image">Enter image URL:</label>
+          <input
+            type="text"
+            id="game-image"
+            name="image"
+            placeholder="e.g. https://example.com/image.jpg"
+          />
+        </div>
+
+        <button type="submit" id="add-game-button" class="btn btn-primary btn-games">
           Add videogame
         </button>
       </form>
