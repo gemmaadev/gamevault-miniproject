@@ -1,80 +1,123 @@
-// 1. Importar array de dades (Mock)
+// ==========================================
+// IMPORTACIONS (Portem les nostres eines)
+// ==========================================
+
+// Importem l'array de jocs inicial (Mock) i les funcions que modifiquen les dades
 import { videogameMock } from "./data/videogame.mock";
 import { deleteVideogames } from "./logic/deleteVideogame";
 import { addVideogames } from "./logic/addVideogame";
+import { filterGames } from "./logic/filters";
 
-// 2. Importar la funció creada a render.ts
+// Importem les funcions que dibuixen l'HTML a la pantalla
 import { renderTop3, renderVideogames } from "./logic/render";
 
-//Crear la variable mutable a dalt del tot
+// ==========================================
+// ESTAT GLOBAL I SELECTORS DE LA PANTALLA
+// ==========================================
+
+// Variable mutable que guarda la llista de jocs activa en memòria RAM
 let currentGames = videogameMock;
 
-// 3. EXECUTAR la funció pasant-li el catàleg de jocs per carregar-los a la pantalla
-renderVideogames(currentGames);
-renderTop3(currentGames);
+// Busquem els inputs i desplegables de la pantalla per poder llegir-los després
+const searchInput = document.getElementById("games-search") as HTMLInputElement;
+const genreSelect = document.getElementById("genre-filter") as HTMLSelectElement;
+const platformSelect = document.getElementById("platform-filter") as HTMLSelectElement;
 
-//DELETE VIDEOGAMES: COM ESCOLTAR CLICS DELS USUARIS PER RECONÈIXER LA ID DELS VIDEOJOCS I ELIMINAR-LOS?
+// ==========================================
+// CERVELL DE L'APLICACIÓ (updateUI)
+// ==========================================
 
-// Escoltar els clics de l'usuari
+// FUNCIÓ CENTRAL: S'encarrega d'agafar els filtres actius, filtrar els jocs i refrescar la pantalla
+function updateUI(): void {
+  // 1. Cridem a la funció de filtrar passant-li els jocs actuals i els valors dels inputs en aquest segon
+  const filtered = filterGames(currentGames, {
+    search: searchInput?.value ?? "",   // Si l'input no existeix (?), pas d'emergència a text buit ("")
+    genre: genreSelect?.value ?? "",     // Si el desplegable no existeix, pas de seguretat a ""
+    platform: platformSelect?.value ?? "", // Si el desplegable no existeix, pas de seguretat a ""
+  });
+
+  // 2. Enviem la llista ja filtrada al pintor per dibuixar només els jocs que han passat el filtre
+  renderVideogames(filtered);
+}
+
+// ==========================================
+// ARRENQUEDA INICIAL (Quan s'obre la web)
+// ==========================================
+
+updateUI();               // Executem la funció central per pintar els jocs per primera vegada
+renderTop3(currentGames); // Calculem i pintem el podi del Top 3 global
+
+// ==========================================
+// ACCIONS DE L'USUARI (EventListeners)
+// ==========================================
+
+// --- A: ESBORRAR UN VIDEOJOC (DELETE) ---
+
+// Seleccionem la llista 'ul' on estan col·locats tots els jocs
 const catalogueContainer = document.getElementById("catalogue");
 
 if (catalogueContainer) {
+  // Escoltem els clics de tot el catàleg (Delegació d'esdeveniments)
   catalogueContainer.addEventListener("click", (event: MouseEvent) => {
-    //Fa que el catàleg escolti els clics de l'usuari
-    event.currentTarget; //És el pare (el catàleg); sempre serà l'element que té posat l'.addEventListener (per fer que fos només el botó, seria event.target)
-
-    //Guardem l'element exacte premut (el botó) tractant-lo com un element HTML
+    // Guardem l'element exacte que ha rebut el clic de l'usuari (el ratolí)
     const clickedElement = event.target as HTMLElement;
 
-    //Comprovem si aquest element té la classe dels nostres botons de borrar i li llegim el data-id
+    // Comprovem si el que s'ha clicat és realment el botó d'esborrar (té la classe 'btn-games')
     if (clickedElement.classList.contains("btn-games")) {
-      const videogameId = clickedElement.dataset.id; //.dataset llegeix tots els atributs HTML que comencen per "data-"
+      const videogameId = clickedElement.dataset.id; // Llegim l'atribut 'data-id' de l'HTML
 
-      // Reasignar la variable actual > funció deleteVideogame.ts
+      // 1. Modifiquem la llista de la memòria generant un array nou sense el joc esborrat
       currentGames = deleteVideogames(currentGames, Number(videogameId));
 
-      // i amb el resultat que li tornis, tornar a executar els renders per actualitzar la pantalla.
-      renderVideogames(currentGames);
+      // 2. Cridem al cervell perquè torni a mirar els filtres de la pantalla i refresqui el catàleg
+      updateUI();
+      
+      // 3. Tornem a calcular el Top 3 perquè si hem esborrat un joc del podi, s'ha d'actualitzar
       renderTop3(currentGames);
     }
   });
 }
 
-//ADD VIDEOGAMES: COM ESCOLTAR CLIC DEL FORMULARI PER RECONÈIXER L'OBJECTE NOU VIDEOJOC I AFEGIR-LO?
+// --- B: AFEGIR UN NOU VIDEOJOC (ADD FORM) ---
 
-const formsContainer = document.getElementById(
-  "add-game-form",
-) as HTMLFormElement;
+// Seleccionem el formulari de la pantalla
+const formsContainer = document.getElementById("add-game-form") as HTMLFormElement;
 
-//Comprovem si el formulari existeix a la pantalla
 if (formsContainer) {
+  // Escoltem quan l'usuari prem el botó d'enviar el formulari (submit)
   formsContainer.addEventListener("submit", function (event: SubmitEvent) {
-    //Escoltar l'esdeveniment d'enviament de formulari
-    event.preventDefault(); //Fa que el navegador no refresqui la pàgina
-    // Llegim el que hi ha escrit a cada input i creem un objecte nou amb l'estructura del tipus Videogame
+    
+    event.preventDefault(); // OBLIGATORI: Frena el navegador a l'instant perquè no es refresqui la pàgina ni canviï la URL
+
+    // Creem l'objecte del nou joc llegint el contingut escrit a cada input de l'HTML
     const newVideogame = {
-      id: Date.now(), // ID única automatitzada
+      id: Date.now(), // Generem una ID única automatitzada fent servir el temps en mil·lisegons
       title: (document.getElementById("new-game") as HTMLInputElement).value,
       genre: (document.getElementById("genre") as HTMLInputElement).value,
       platform: (document.getElementById("platform") as HTMLInputElement).value,
-      rating: Number(
-        (document.getElementById("rating") as HTMLInputElement).value,
-      ),
-      year: Number(
-        (document.getElementById("release-year") as HTMLInputElement).value,
-      ),
+      rating: Number((document.getElementById("rating") as HTMLInputElement).value),
+      year: Number((document.getElementById("release-year") as HTMLInputElement).value),
       cover: (document.getElementById("game-image") as HTMLInputElement).value,
     };
 
-    //Afegim aquest nou objecte a la nostra variable global currentGames
+    // 1. Modifiquem la llista de la memòria afegint aquest nou objecte a dalt o a baix
     currentGames = addVideogames(currentGames, newVideogame);
 
-    //Netegem
+    // 2. Netegem i buidem automàticament totes les caixes de text del formulari
     formsContainer.reset();
 
-    // Tornem a cridar a renderVideogames(currentGames)
-    // per tal que pinti la llista actualitzada amb el nou joc inclòs.
-    renderVideogames(currentGames);
+    // 3. Cridem al cervell perquè la pantalla es refresqui respectant el filtre que l'usuari tingui posat
+    updateUI();
+    
+    // 4. Actualitzem el Top 3 per si el nou joc té una nota tan alta que es mereix entrar al podi
     renderTop3(currentGames);
   });
 }
+
+// --- C: INTERACTUAR AMB ELS FILTRES (INPUT / CHANGE) ---
+
+// Escoltem quan l'usuari escriu al cercador, canvia el gènere o canvia la plataforma.
+// Qualsevol d'aquestes 3 accions activarà automàticament el cervell (updateUI) per re-filtrar la llista.
+searchInput?.addEventListener("input", updateUI);
+genreSelect?.addEventListener("change", updateUI);
+platformSelect?.addEventListener("change", updateUI);
